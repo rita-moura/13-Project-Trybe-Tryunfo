@@ -23,6 +23,7 @@ class Form extends Component {
           <label htmlFor="name-input">
             Nome da Carta:
             <input
+              name="cardName"
               id="name-input"
               type="text"
               data-testid="name-input"
@@ -36,6 +37,7 @@ class Form extends Component {
           <label htmlFor="description-input">
             Descrição da Carta:
             <textarea
+              name="cardDescription"
               id="description-input"
               data-testid="description-input"
               value={ cardDescription }
@@ -48,6 +50,7 @@ class Form extends Component {
           <label htmlFor="attr1-input">
             Atributo 1:
             <input
+              name="cardAttr1"
               id="attr1-input"
               type="number"
               data-testid="attr1-input"
@@ -61,6 +64,7 @@ class Form extends Component {
           <label htmlFor="attr2-input">
             Atributo 2:
             <input
+              name="cardAttr2"
               id="attr2-input"
               type="number"
               data-testid="attr2-input"
@@ -74,6 +78,7 @@ class Form extends Component {
           <label htmlFor="attr3-input">
             Atributo 3:
             <input
+              name="cardAttr3"
               id="attr3-input"
               type="number"
               data-testid="attr3-input"
@@ -87,6 +92,7 @@ class Form extends Component {
           <label htmlFor="image-input">
             Imagem:
             <input
+              name="cardImage"
               id="image-input"
               type="text"
               data-testid="image-input"
@@ -100,6 +106,8 @@ class Form extends Component {
           <label htmlFor="rare-input">
             Adicione a raridade da carta:
             <select
+              name="cardRare"
+              type="select"
               id="rare-input"
               data-testid="rare-input"
               value={ cardRare }
@@ -116,6 +124,7 @@ class Form extends Component {
           <label htmlFor="trunfo-input">
             Super trunfo:
             <input
+              name="cardTrunfo"
               type="checkbox"
               id="trunfo-input"
               data-testid="trunfo-input"
