@@ -15,8 +15,11 @@ class Form extends Component {
       hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
-      onSaveButtonClick } = this.props;
-    console.log(hasTrunfo);
+      onSaveButtonClick,
+    } = this.props;
+
+    console.log('hastrunfo', hasTrunfo);
+
     return (
       <form>
         <div>
@@ -136,7 +139,7 @@ class Form extends Component {
 
         <div>
           <button
-            type="button"
+            type="submit"
             data-testid="save-button"
             disabled={ isSaveButtonDisabled }
             onClick={ onSaveButtonClick }

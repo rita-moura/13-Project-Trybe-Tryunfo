@@ -1,10 +1,14 @@
-import React from 'react';
-import Card from './components/Card';
+import React, { Component } from 'react';
 import Form from './components/Form';
+import Card from './components/Card';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+// const maxValue = 90;
+const minValue = 0;
+// const sumTotal = 210;
+
+class App extends Component {
+  constructor() {
+    super();
 
     this.state = {
       cardName: '',
@@ -13,71 +17,67 @@ class App extends React.Component {
       cardAttr2: '',
       cardAttr3: '',
       cardImage: '',
-      cardRare: '',
+      cardRare: 'Normal',
       cardTrunfo: false,
       hasTrunfo: false,
-      isSaveButtonDisabled: false,
+      isSaveButtonDisabled: true,
       onInputChange: this.onInputChange,
       onSaveButtonClick: this.onSaveButtonClick,
     };
-
-    this.onInputChange = this.onInputChange.bind(this);
-    // this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
   }
 
-  onInputChange({ target }) {
-    const { name, type, checked } = target;
-    const value = type === 'checkbox' ? checked : target.value;
-    this.setState(() => ({
-      [name]: value,
-    }));
-  }
-
-  render() {
+  validateForm = () => {
     const {
       cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
       cardImage,
-      cardRare,
-      cardTrunfo,
-      hasTrunfo,
-      isSaveButtonDisabled,
-      onInputChange,
-      onSaveButtonClick,
+      cardDescription,
+      // cardAttr1,
+      // cardAttr2,
+      // cardAttr3,
     } = this.state;
-    console.log(onInputChange, onSaveButtonClick);
+
+    const name = cardName.length <= minValue;
+    const image = cardImage.length <= minValue;
+    const description = cardDescription.length <= minValue;
+
+    // const verifyAttr1 = Number(cardAttr1) >= minValue && Number(cardAttr1) <= maxValue;
+    // const verifyAttr2 = Number(cardAttr2) >= minValue && Number(cardAttr2) <= maxValue;
+    // const verifyAttr3 = Number(cardAttr3) >= minValue && Number(cardAttr3) <= maxValue;
+
+    // const verifyAttr = verifyAttr1 && verifyAttr2 && verifyAttr3;
+
+    // const totalValue = (
+    //   Number(cardAttr1)
+    // + Number(cardAttr2)
+    // + Number(cardAttr3)) <= sumTotal;
 
     return (
-      <div>
-        <h1>Tryunfo</h1>
+      name
+      || image
+      || description
+      // || totalValue
+      // || verifyAttr
+    );
+  };
+
+  onInputChange = ({ target }) => {
+    const { type, name, checked } = target;
+    const value = type === 'checkbox' ? checked : target.value;
+    this.setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  render() {
+    return (
+      <section>
         <Form
-          onInputChange={ this.onInputChange }
-          onSaveButtonClick={ this.onSaveButtonClick }
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          hasTrunfo={ hasTrunfo }
-          isSaveButtonDisabled={ isSaveButtonDisabled }
+          { ...this.state }
+          isSaveButtonDisabled={ this.validateForm() }
         />
-        <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-        />
-      </div>
+        <Card { ...this.state } />
+      </section>
     );
   }
 }
