@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
 
-// const maxValue = 90;
-const minValue = 0;
-// const sumTotal = 210;
-
 class App extends Component {
   constructor() {
     super();
@@ -13,14 +9,14 @@ class App extends Component {
     this.state = {
       cardName: '',
       cardDescription: '',
-      cardAttr1: '',
-      cardAttr2: '',
-      cardAttr3: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
       cardImage: '',
       cardRare: 'Normal',
       cardTrunfo: false,
       hasTrunfo: false,
-      isSaveButtonDisabled: true,
+      isSaveButtonDisabled: false,
       onInputChange: this.onInputChange,
       onSaveButtonClick: this.onSaveButtonClick,
     };
@@ -31,32 +27,33 @@ class App extends Component {
       cardName,
       cardImage,
       cardDescription,
-      // cardAttr1,
-      // cardAttr2,
-      // cardAttr3,
+      cardRare,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
     } = this.state;
 
-    const name = cardName.length <= minValue;
-    const image = cardImage.length <= minValue;
-    const description = cardDescription.length <= minValue;
+    const minValue = 0;
+    const maxValue = 90;
+    const sumTotal = 210;
 
-    // const verifyAttr1 = Number(cardAttr1) >= minValue && Number(cardAttr1) <= maxValue;
-    // const verifyAttr2 = Number(cardAttr2) >= minValue && Number(cardAttr2) <= maxValue;
-    // const verifyAttr3 = Number(cardAttr3) >= minValue && Number(cardAttr3) <= maxValue;
-
-    // const verifyAttr = verifyAttr1 && verifyAttr2 && verifyAttr3;
-
-    // const totalValue = (
-    //   Number(cardAttr1)
-    // + Number(cardAttr2)
-    // + Number(cardAttr3)) <= sumTotal;
+    const name = cardName.length > minValue;
+    const image = cardImage.length > minValue;
+    const description = cardDescription.length > minValue;
+    const verifyAttr1 = Number(cardAttr1) >= minValue && Number(cardAttr1) <= maxValue;
+    const verifyAttr2 = Number(cardAttr2) >= minValue && Number(cardAttr2) <= maxValue;
+    const verifyAttr3 = Number(cardAttr3) >= minValue && Number(cardAttr3) <= maxValue;
+    const verifyAttr = verifyAttr1 && verifyAttr2 && verifyAttr3;
+    const sumTotalATT = Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3);
+    const maxValueAttr = sumTotalATT <= sumTotal;
 
     return (
       name
-      || image
-      || description
-      // || totalValue
-      // || verifyAttr
+      && image
+      && description
+      && cardRare
+      && verifyAttr
+      && maxValueAttr
     );
   };
 
@@ -66,6 +63,8 @@ class App extends Component {
     this.setState((prevState) => ({
       ...prevState,
       [name]: value,
+    }), () => ({
+      isSaveButtonDisabled: this.validateForm,
     }));
   };
 
@@ -74,7 +73,7 @@ class App extends Component {
       <section>
         <Form
           { ...this.state }
-          isSaveButtonDisabled={ this.validateForm() }
+          isSaveButtonDisabled={ !this.validateForm() }
         />
         <Card { ...this.state } />
       </section>
