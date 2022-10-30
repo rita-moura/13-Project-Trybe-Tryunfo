@@ -98,6 +98,10 @@ class App extends Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: 'Normal',
+    }, () => {
+      this.setState({
+        hasTrunfo: true,
+      });
     });
   };
 

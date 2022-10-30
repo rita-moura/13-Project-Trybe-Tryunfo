@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-closing-tag-location */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -12,7 +13,7 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
@@ -123,19 +124,20 @@ class Form extends Component {
           </label>
         </div>
 
-        <div>
-          <label htmlFor="trunfo-input">
-            Super trunfo:
-            <input
-              name="cardTrunfo"
-              type="checkbox"
-              id="trunfo-input"
-              data-testid="trunfo-input"
-              checked={ cardTrunfo }
-              onChange={ onInputChange }
-            />
-          </label>
-        </div>
+        {
+          hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p>
+            : <label htmlFor="trunfo-input">
+              Super trunfo:
+              <input
+                name="cardTrunfo"
+                type="checkbox"
+                id="trunfo-input"
+                data-testid="trunfo-input"
+                checked={ cardTrunfo }
+                onChange={ onInputChange }
+              />
+            </label>
+        }
 
         <div>
           <button
@@ -162,7 +164,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  // hasTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
