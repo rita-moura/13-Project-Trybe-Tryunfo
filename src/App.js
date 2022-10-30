@@ -17,6 +17,7 @@ class App extends Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: false,
+      array: [],
       onInputChange: this.onInputChange,
       onSaveButtonClick: this.onSaveButtonClick,
     };
@@ -66,6 +67,38 @@ class App extends Component {
     }), () => ({
       isSaveButtonDisabled: this.validateForm,
     }));
+  };
+
+  onSaveButtonClick = () => {
+    const {
+      cardName,
+      cardImage,
+      cardDescription,
+      cardRare,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      array,
+    } = this.state;
+    const objectCart = {
+      cardName,
+      cardImage,
+      cardDescription,
+      cardRare,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+    };
+    array.push(objectCart);
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'Normal',
+    });
   };
 
   render() {
