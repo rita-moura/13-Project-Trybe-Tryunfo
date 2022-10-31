@@ -97,6 +97,7 @@ class App extends Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: 'Normal',
+      cardTrunfo: false,
     }), () => {
       this.setState({
         hasTrunfo: true,
@@ -108,11 +109,12 @@ class App extends Component {
     const { arrayCardSave } = this.state;
     return (
       <section>
+        <Card { ...this.state } />
         <Form
           { ...this.state }
           isSaveButtonDisabled={ !this.validateForm() }
         />
-        {arrayCardSave.map((element) => (
+        { arrayCardSave.map((element) => (
           <Card
             key={ element.cardName }
             cardName={ element.cardName }
