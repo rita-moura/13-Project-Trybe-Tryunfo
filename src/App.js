@@ -17,7 +17,7 @@ class App extends Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: false,
-      array: [],
+      arrayCardSave: [],
       onInputChange: this.onInputChange,
       onSaveButtonClick: this.onSaveButtonClick,
     };
@@ -78,7 +78,7 @@ class App extends Component {
       cardAttr1,
       cardAttr2,
       cardAttr3,
-      array,
+      arrayCardSave,
     } = this.state;
     const objectCart = {
       cardName,
@@ -89,7 +89,7 @@ class App extends Component {
       cardAttr2,
       cardAttr3,
     };
-    array.push(objectCart);
+    arrayCardSave.push(objectCart);
     this.setState({
       cardName: '',
       cardDescription: '',
