@@ -78,7 +78,6 @@ class App extends Component {
       cardAttr1,
       cardAttr2,
       cardAttr3,
-      arrayCardSave,
     } = this.state;
     const objectCart = {
       cardName,
@@ -89,8 +88,8 @@ class App extends Component {
       cardAttr2,
       cardAttr3,
     };
-    arrayCardSave.push(objectCart);
-    this.setState({
+    this.setState((prev) => ({
+      arrayCardSave: [...prev.arrayCardSave, objectCart],
       cardName: '',
       cardDescription: '',
       cardAttr1: '0',
@@ -98,7 +97,7 @@ class App extends Component {
       cardAttr3: '0',
       cardImage: '',
       cardRare: 'Normal',
-    }, () => {
+    }), () => {
       this.setState({
         hasTrunfo: true,
       });
@@ -106,13 +105,26 @@ class App extends Component {
   };
 
   render() {
+    const { arrayCardSave } = this.state;
     return (
       <section>
         <Form
           { ...this.state }
           isSaveButtonDisabled={ !this.validateForm() }
         />
-        <Card { ...this.state } />
+        {arrayCardSave.map((element) => (
+          <Card
+            key={ element.cardName }
+            cardName={ element.cardName }
+            cardDescription={ element.cardDescription }
+            cardImage={ element.cardImage }
+            cardRare={ element.cardRare }
+            cardAttr1={ element.cardAttr1 }
+            cardAttr2={ element.cardAttr2 }
+            cardAttr3={ element.cardAttr3 }
+            cardTrunfo={ element.cardTrunfo }
+          />
+        ))}
       </section>
     );
   }
